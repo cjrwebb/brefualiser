@@ -43,16 +43,16 @@ draw_spend_res <- function(la_select = NULL) {
   
   if (is.null(la_select)) {
   
-  spe_combined_plot <- spend_res_combined_sum %>%
+  spe_combined_plot <- re_dat %>%
     mutate(rank_cspend = rank(combined_spend_resid_median)) %>%
     ggplot() +
-    geom_hline(yintercept = rev_std_b(c_spend_eff, sd_cla_resid, sd_spend_resid)) +
+    geom_hline(yintercept = rev_std_b(lrp_feff, sd_cla_resid, sd_spend_resid)) +
     geom_segment(aes(x = rank_cspend, xend = rank_cspend,
-                     y = rev_std_b(combined_spend_resid_q89_lb + c_spend_eff, sd_cla_resid, sd_spend_resid), 
-                     yend = rev_std_b(combined_spend_resid_q89_ub + c_spend_eff, sd_cla_resid, sd_spend_resid))) +
+                     y = rev_std_b(combined_spend_resid_q89_lb + lrp_feff, sd_cla_resid, sd_spend_resid), 
+                     yend = rev_std_b(combined_spend_resid_q89_ub + lrp_feff, sd_cla_resid, sd_spend_resid))) +
     geom_point(aes(x = rank_cspend, 
-                   y = rev_std_b(combined_spend_resid_median + c_spend_eff, sd_cla_resid, sd_spend_resid), 
-                   text = paste0(la_name, ": ", round(rev_std_b(combined_spend_resid_median + c_spend_eff, sd_cla_resid, sd_spend_resid), 2)))) +
+                   y = rev_std_b(combined_spend_resid_median + lrp_feff, sd_cla_resid, sd_spend_resid), 
+                   text = paste0(la_name, ": ", round(rev_std_b(combined_spend_resid_median + lrp_feff, sd_cla_resid, sd_spend_resid), 2)))) +
     theme_minimal() +
     theme(plot.background = element_rect(fill = "transparent"), panel.background = element_rect("transparent")) +
     ylab(HTML("Predicted change in CLA starts per 10,000 residual for a £100 increase\nabove LA trend in preventative spending, sustained for 2 years")) +
@@ -62,23 +62,23 @@ draw_spend_res <- function(la_select = NULL) {
   
   } else {
     
-    spe_combined_plot <- spend_res_combined_sum %>%
+    spe_combined_plot <- re_dat %>%
       mutate(rank_cspend = rank(combined_spend_resid_median)) %>%
       ggplot() +
-      geom_hline(yintercept = rev_std_b(c_spend_eff, sd_cla_resid, sd_spend_resid) ) +
+      geom_hline(yintercept = rev_std_b(lrp_feff, sd_cla_resid, sd_spend_resid) ) +
       geom_segment(aes(x = rank_cspend, xend = rank_cspend,
-                       y = rev_std_b(combined_spend_resid_q89_lb + c_spend_eff, sd_cla_resid, sd_spend_resid), 
-                       yend = rev_std_b(combined_spend_resid_q89_ub + c_spend_eff, sd_cla_resid, sd_spend_resid))) +
-      geom_point(aes(x = rank_cspend, y = rev_std_b(combined_spend_resid_median + c_spend_eff, sd_cla_resid, sd_spend_resid), 
-                     text = paste0(la_name, ": ", round(rev_std_b(combined_spend_resid_median + c_spend_eff, sd_cla_resid, sd_spend_resid), 2)))) +
+                       y = rev_std_b(combined_spend_resid_q89_lb + lrp_feff, sd_cla_resid, sd_spend_resid), 
+                       yend = rev_std_b(combined_spend_resid_q89_ub + lrp_feff, sd_cla_resid, sd_spend_resid))) +
+      geom_point(aes(x = rank_cspend, y = rev_std_b(combined_spend_resid_median + lrp_feff, sd_cla_resid, sd_spend_resid), 
+                     text = paste0(la_name, ": ", round(rev_std_b(combined_spend_resid_median + lrp_feff, sd_cla_resid, sd_spend_resid), 2)))) +
       geom_segment(data = . %>% filter(la_name %in% la_select),
                      aes(x = rank_cspend, xend = rank_cspend,
-                     y = rev_std_b(combined_spend_resid_q89_lb + c_spend_eff, sd_cla_resid, sd_spend_resid), 
-                     yend = rev_std_b(combined_spend_resid_q89_ub + c_spend_eff, sd_cla_resid, sd_spend_resid)), col = "turquoise") +
+                     y = rev_std_b(combined_spend_resid_q89_lb + lrp_feff, sd_cla_resid, sd_spend_resid), 
+                     yend = rev_std_b(combined_spend_resid_q89_ub + lrp_feff, sd_cla_resid, sd_spend_resid)), col = "turquoise") +
       geom_point(data = . %>% filter(la_name %in% la_select),
                  aes(x = rank_cspend, 
-                     y = rev_std_b(combined_spend_resid_median + c_spend_eff, sd_cla_resid, sd_spend_resid), 
-                     text = paste0(la_name, ": ", round(rev_std_b(combined_spend_resid_median + c_spend_eff, sd_cla_resid, sd_spend_resid), 2))), col = "turquoise") +
+                     y = rev_std_b(combined_spend_resid_median + lrp_feff, sd_cla_resid, sd_spend_resid), 
+                     text = paste0(la_name, ": ", round(rev_std_b(combined_spend_resid_median + lrp_feff, sd_cla_resid, sd_spend_resid), 2))), col = "turquoise") +
       theme_minimal() +
       theme(plot.background = element_rect(fill = "transparent"), panel.background = element_rect("transparent")) +
       ylab(HTML("Predicted change in CLA starts per 10,000 residual for a £100 increase\nabove LA trend in preventative spending, sustained for 2 years")) +

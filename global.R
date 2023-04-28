@@ -18,7 +18,7 @@ library(plotly)
 re_dat <- read_csv("data/spend_REs_LRPs.csv")
 
 # long run proposensity effect for spending residuals (from trends)
-lrp_feff <- -0.1800059
+lrp_feff <- -0.1530772
 
 # I also want to backtransform my model estimates, so need the standard deviation
 # from my scaled residuals in the model. I also want to make the coefficients

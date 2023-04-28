@@ -1,0 +1,14 @@
+name: brefualiser
+title: brefualiser
+username:
+account: webb
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 8962246
+bundleId: 7139867
+url: https://webb.shinyapps.io/brefualiser/
+when: 1682537372.00712
+lastSyncTime: 1682537372.00713
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: data/merged_data_codebook.csv|data/merged_data.csv|model.R
